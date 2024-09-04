@@ -23,9 +23,6 @@ class ModelTrainerConfig:
     trained_model_file_path=os.path.join('artifacts', 'model.pkl')
     
 class ModelTrainer:
-    def __init__(self):
-        self.model_trainer_config=ModelTrainerConfig()
-        
     def initiate_model_trainer(self,train_array,test_array):
         try:
             logging.info("Splitting training and test input data")
@@ -95,15 +92,10 @@ class ModelTrainer:
             
             logging.info("Best model found on both training and test data set")
             
-            save_object(
-                file_path=self.model_trainer_config.trained_model_file_path,
-                obj=best_model
-            )
-            
             predicted=best_model.predict(X_test)
             
             r2_square = r2_score(y_test, predicted)
-            return r2_square
+            return r2_square, best_model_name
             
             
         except CustomException as e:

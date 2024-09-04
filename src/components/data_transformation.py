@@ -12,15 +12,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object
-
-@dataclass
-class DataTransformationConfig:
-    preprocessor_ob_file_path=os.path.join('artifacts', "prepocessor.pkl")
     
 class DataTransformation:
-    def __init__(self):
-        self.data_transformation_config=DataTransformationConfig()
-        
     def get_data_transformer_object(self):
         '''
         This function is responsible for data transformation
@@ -62,7 +55,6 @@ class DataTransformation:
             
             return preprocessor
         
-        
         except Exception as e:
             raise CustomException(e,sys)
 
@@ -97,18 +89,9 @@ class DataTransformation:
             test_arr = np.c_[
                 input_feature_test_arr, np.array(target_feature_test_df)
             ]
-            
-            logging.info("Saved preprocessing object")
-            
-            save_object(
-                file_path = self.data_transformation_config.preprocessor_ob_file_path,
-                obj = preprocessing_obj
-            )
-            
             return(
                 train_arr,
-                test_arr,
-                self.data_transformation_config.preprocessor_ob_file_path
+                test_arr
             )
 
         except Exception as e:
