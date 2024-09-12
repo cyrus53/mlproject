@@ -55,7 +55,10 @@ if __name__ =="__main__":
     train_arr,test_arr=data_transformation.initiate_data_transformation(train_data,test_data)
     
     modeltrainer = ModelTrainer()
-    print(modeltrainer.initiate_model_trainer(train_arr, test_arr))
+    r2_square,model_name=modeltrainer.initiate_model_trainer(train_arr, test_arr)
+    
+    print(f"The best ML model for this set of data is : {model_name}")
+    print(f"With an r squared value of: {r2_square}")
     
 
     
